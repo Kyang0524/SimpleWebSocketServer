@@ -19,7 +19,7 @@ app.Map("/ws", async context =>
         connections.Add(ws);
 
         await Broadcast($"{Client} joined the room");// 廣播訊息
-        await Broadcast($"{connections.Count} users connected");// 廣播訊息
+        await Broadcast($"{connections.Count} Online");// 廣播訊息
         await ReceiveMessage(ws,
             async (result, buffer) =>
             {
@@ -32,7 +32,7 @@ app.Map("/ws", async context =>
                 {
                     connections.Remove(ws);
                     await Broadcast($"{Client} left the room");
-                    await Broadcast($"{connections.Count} users connected");
+                    await Broadcast($"{connections.Count} Online");
                     await ws.CloseAsync(result.CloseStatus!.Value, result.CloseStatusDescription, CancellationToken.None);
                 }
             });
